@@ -26,8 +26,11 @@ Read the file NeRTA Implementation to learn how the NeRTA algorithm has been imp
 
 1. Unreal Engine 4.26.2
 2. Visual Studio 2022 with the following components:
+
     2a. MSVC v143 - VS 2022 C++ x64/x86 build tools (Latest)
+
     2b. Windows 10 or 11 SDK
+   
     2c. .NET Framework 4.8 SDK
 
 ## Required hardware
