@@ -26,6 +26,26 @@ We implemented a scripted flight sequence in the `getActuators` function. This f
 
 This script enables us to collect many measurements automatically. Also, variations in the host computer's performance and current load introduce small variations between different runs.
 
-This script is can also be used for the BRC dependability experiments by replacing step 3 with waiting for the roll force to be applied. Step 4 is followed after the roll force is applied.
+This script is can also be used for the BRC dependability experiments by replacing step 3 with waiting for the roll force to be applied. Step 4 is followed after the roll force is applied. This can be done by replacing the following code in Source/HackflightModule/FlightManager.hpp (ensure to also enable the roll force as explained prior):
+
+``````cpp
+if (inertial_euclidean_velocity < 16.0 && stage == 2) {
+    _receiver->write(0.45, hf::DEMANDS_ROLL);
+    _receiver->write(0.0, hf::DEMANDS_THROTTLE);
+    _receiver->write(0.0, hf::DEMANDS_YAW);
+    _receiver->write(0.0, hf::DEMANDS_PITCH);
+}
+``````
+
+with the following:
+
+``````cpp
+if (inertial_euclidean_velocity < 1.0 && stage == 2) {
+    _receiver->write(0.0, hf::DEMANDS_ROLL);
+    _receiver->write(0.0, hf::DEMANDS_THROTTLE);
+    _receiver->write(0.0, hf::DEMANDS_YAW);
+    _receiver->write(0.0, hf::DEMANDS_PITCH);
+}
+``````
 
 NOTE: you have recompile the simulator with Visual Studio after making changes to the code, then reopening Unreal Engine.
